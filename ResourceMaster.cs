@@ -12,9 +12,9 @@ using UnityEngine;
 
 namespace uMod.Plugins
 {
-  [Info("Gather Master", "slaymaster3000", "0.0.0-development")]
+  [Info("Resource Master", "BlueBeka", "0.0.0")]
   [Description("Change the amount or even kind of resource gained from gathering resources.")]
-  class GatherMaster : Plugin
+  class ResourceMaster : Plugin
   {
 #nullable disable
     private ModifiersConfig modifiersConfig;
@@ -27,7 +27,7 @@ namespace uMod.Plugins
 
     public const string WildCard = "*";
 
-    public GatherMaster()
+    public ResourceMaster()
     {
       serverInitialized = false;
       rates = new Rates();
@@ -338,7 +338,7 @@ namespace uMod.Plugins
 
         public class CommandShowDataLocale : CommandShowData.ILocale
         {
-          public string Command => "gathermaster.showdata";
+          public string Command => "ResourceMaster.showdata";
         }
       }
     }
@@ -436,7 +436,7 @@ namespace uMod.Plugins
       /// <summary>
       /// Initialize this data file.
       /// </summary>
-      private void Init(GatherMaster plugin, string filename)
+      private void Init(ResourceMaster plugin, string filename)
       {
         DataFile = plugin.Files.GetDataFile<Rates>(filename);
       }
@@ -444,7 +444,7 @@ namespace uMod.Plugins
       /// <summary>
       /// Save the rates data.
       /// </summary>
-      public static IPromise SaveRates(GatherMaster plugin)
+      public static IPromise SaveRates(ResourceMaster plugin)
       {
         return Save(plugin, RatesFilename, plugin.rates);
       }
@@ -452,7 +452,7 @@ namespace uMod.Plugins
       /// <summary>
       /// Save the vanilla rates data.
       /// </summary>
-      public static IPromise SaveVanillaRates(GatherMaster plugin)
+      public static IPromise SaveVanillaRates(ResourceMaster plugin)
       {
         return Save(plugin, VanillaRatesFilename, plugin.vanillaRates);
       }
@@ -460,7 +460,7 @@ namespace uMod.Plugins
       /// <summary>
       /// Save the data.
       /// </summary>
-      private static IPromise Save(GatherMaster plugin, string filename, Rates data)
+      private static IPromise Save(ResourceMaster plugin, string filename, Rates data)
       {
         if (data.DataFile == null)
           data.Init(plugin, filename);
@@ -473,7 +473,7 @@ namespace uMod.Plugins
       /// <summary>
       /// Load the data.
       /// </summary>
-      public static IPromise LoadRates(GatherMaster plugin)
+      public static IPromise LoadRates(ResourceMaster plugin)
       {
         return Load(plugin, RatesFilename, plugin.rates);
       }
@@ -481,7 +481,7 @@ namespace uMod.Plugins
       /// <summary>
       /// Load the rates data.
       /// </summary>
-      public static IPromise LoadVanillaRates(GatherMaster plugin)
+      public static IPromise LoadVanillaRates(ResourceMaster plugin)
       {
         return Load(plugin, VanillaRatesFilename, plugin.vanillaRates);
       }
@@ -489,7 +489,7 @@ namespace uMod.Plugins
       /// <summary>
       /// Load the vanilla rates data.
       /// </summary>
-      private static IPromise Load(GatherMaster plugin, string filename, Rates data)
+      private static IPromise Load(ResourceMaster plugin, string filename, Rates data)
       {
         if (data.DataFile == null)
           data.Init(plugin, filename);
@@ -532,12 +532,12 @@ namespace uMod.Plugins
     private static class Permissions
     {
       // Permissions.
-      public const string Admin = "gathermaster.admin";
+      public const string Admin = "ResourceMaster.admin";
 
       /// <summary>
       /// Register the permissions.
       /// </summary>
-      public static void Register(GatherMaster plugin)
+      public static void Register(ResourceMaster plugin)
       {
         if (!plugin.permission.PermissionExists(Admin, plugin))
         {
@@ -564,7 +564,7 @@ namespace uMod.Plugins
       /// <summary>
       /// The implementation of the show data command.
       /// </summary>
-      public static CommandState Handle(GatherMaster plugin)
+      public static CommandState Handle(ResourceMaster plugin)
       {
         Rates.SaveVanillaRates(plugin);
         Rates.SaveRates(plugin);
